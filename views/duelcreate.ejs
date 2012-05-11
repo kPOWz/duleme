@@ -1,0 +1,41 @@
+<div class="user">
+	<img src=<%="https://graph.facebook.com/" + fb_username + "/picture?type=normal"%> />
+</div>
+
+<hr />
+
+<h4>Hey <%= first_name %>! Create your duel below. <a href="/signout">Not you?</a></h4>
+
+<hr />
+
+<form action="/duel/create" method="POST">
+	<div class="box">
+		<div class="input">
+			<label for="desc">DUEL DESCRIPTION</label>
+			<textarea id="desc" name="desc" placeholder="This will be the most epic wing eating contest evar!!!"></textarea>
+		</div>
+		
+		<div class="split_input">
+			<div class="date">
+				<label for="end_date">END DATE</label>
+				<input type="text" name="end_date" id="end_date" placeholder="Date the duel will end" />
+			</div>
+			<div class="time">
+				<label for="end_time">END TIME</label>
+				<input type="text" name="end_time" id="end_time" placeholder="Time of daym" />
+			</div>
+		</div>
+		
+		<div class="input">
+			<label for="challenger">CHOOSE A CHALLENGER</label>
+			<select name="challenger" id="challenger">
+				<% for(var i=0; i < friends.length; i++) { %>
+					<option value=<%= friends[i].id %>> <%= friends[i].name %></option>
+				<% } %>
+			</select>
+		</div>
+	</div>
+
+	<button type="submit" class="button"><span>Create this Duel!</span></button>
+	<small>(Your challenger will be notified via Facebook.)</small>
+</form>

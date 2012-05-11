@@ -1,0 +1,11 @@
+<% if (!auth) { %>
+	<p>
+	<a href="/">Home</a> | 
+	<a href="/auth/facebook">Log In</a>
+	</p>
+<% } else { %>
+	<p>
+	<a href="/duel/create">Create Duel</a> | 
+	<a href="/signout">Log Out</a>
+	</p>
+<% } %>

@@ -1,0 +1,201 @@
+@import "bootstrap.less";
+#reset > .global-reset();
+
+html, body {
+	height: 100%;
+	width: 100%;
+}
+
+html {
+	background: url(../images/bg.png) repeat 0 0;
+}
+
+body {
+	background: url(../images/bg_img.png) no-repeat 50% 50%;
+}
+
+#topbar {
+	width: 100%;
+	height: 15px;
+	background: url(../images/topbar.png) repeat-x 0 0;
+}
+
+.container {
+	padding: 20px 0 0;
+	text-align: center;
+
+	#logo {
+		display: block;
+		text-indent: -9999px;
+		text-decoration: none;
+	
+		width: 283px;
+		height: 88px;
+		background: url(../images/logo.png) no-repeat 0 0;	
+		
+		margin: 0 auto;
+		padding: 0 0 30px;
+	}
+	
+	h3, h4 {
+		#font > .sans-belgrano(normal, 18px, 34px);
+		color: #fff;
+		text-shadow: rgba(0,0,0,0.4) 0 1px 1px;
+		text-align: center;
+	}
+	h3 {
+		padding: 0 0 30px;
+	}
+
+	.examples {
+		display: block;
+		margin: 0 auto 30px;
+		padding: 1px 35px;
+		width: 400px;
+		
+		background: url(../images/dark.png) repeat 0 0;
+		.border-radius(5px);
+
+		li {
+			display: block;
+			height: 32px;
+			margin: 20px auto;
+			padding-left: 40px;
+
+			#font > .sans-belgrano(normal, 18px, 32px);
+			color: #fff;
+			text-shadow: rgba(0,0,0,0.4) 0 1px 1px;
+			text-align: center;
+			
+			&.pizza {
+				width: 280px;
+				background: url(../images/pizza.png) no-repeat 0 0;
+			}
+			&.people {
+				width: 360px;
+				background: url(../images/people.png) no-repeat 0 0;
+			}
+			&.beer {
+				width: 330px;
+				background: url(../images/beer.png) no-repeat 0 0;
+			}
+		}
+	}
+	
+	.button {
+		display: inline-block;
+		height: 63px;
+		background: url(../images/button_right.png) no-repeat 100% 0;
+		padding-right: 10px;
+
+		span {
+			display: inline-block;
+			height: 63px;
+			padding: 0 50px 0 60px;
+			background: url(../images/button_left.png) no-repeat 0 0;
+			
+			#font > .sans-belgrano(normal, 28px, 60px);
+			color: #fff;
+			text-shadow: rgba(0,0,0,0.4) 0 1px 1px;
+			text-align: center;
+		}
+	}
+	
+	small {
+		display: block;
+		padding: 10px 0 0;
+
+		#font > .sans-belgrano(normal, 14px, 20px);
+		color: #fff;
+		text-shadow: rgba(0,0,0,0.4) 0 1px 1px;
+		text-align: center;
+	}
+	
+	.user {
+		display: block;
+		width: 100px;
+		margin: 0 auto 20px;
+
+		.box-shadow(rgba(0,0,0,0.3) 0 1px 3px);
+		.border-radius(5px);
+
+		img {
+			display: block;
+			width: 100px;
+			height: 100px;
+			.border-radius(5px);
+		}
+	}
+	
+	hr {
+		border: 0;
+		height: 1px;
+		width: 100%;
+		background: url(../images/hr.png) no-repeat 50% 0;
+	}
+	
+	.box {
+		width: 430px;
+		margin: 20px auto 30px;
+		padding: 15px 20px 5px;
+
+		background: url(../images/dark.png) repeat 0 0;
+		.border-radius(5px);
+		
+		text-align: left;
+	}
+	
+	.input, .split_input {
+		padding: 0 0 15px;
+	
+		label {
+			display: block;
+			#font > .sans-droid(700, 14px, 18px);
+			color: #fff;
+			text-shadow: rgba(0,0,0,0.4) 0 1px 1px;
+			padding: 0 0 3px;
+		}
+		
+		input, textarea {
+			display: block;
+			outline: none;
+
+			#font > .sans-belgrano(normal, 14px, 20px);
+			color: #555;
+			width: 420px;
+			
+			.border-radius(5px);
+			padding: 10px 5px;
+			
+			.box-shadow(inset rgba(0,0,0,0.3) 0 1px 3px);
+			border: 1px solid #000;
+		}
+		textarea {
+			height: 100px;
+		}
+		
+		&.split_input {
+			.clearfix;
+
+			.date, .time {
+				float: left;
+			}
+			
+			.date {
+				width: 245px;
+				padding-right: 10px;
+				
+				input {
+					width: 225px;	
+				}
+			}
+			.time {
+				width: 160px;
+				
+				input {
+					width: 160px;	
+				}
+			}
+		}
+	}
+}
