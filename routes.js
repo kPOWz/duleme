@@ -168,5 +168,8 @@ module.exports = function(app) {
 	app.get('/templates/picked', function(req, res){
 		return res.render('picked.ejs');
 	});
+	app.get('/templates/modal', function(req, res){
+		return res.render('modal.ejs');
+	});
 
 };

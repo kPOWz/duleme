@@ -371,6 +371,7 @@ html {
   background: url(../images/bg.png) repeat 0 0;
 }
 body {
+  position: relative;
   background: url(../images/bg_img.png) no-repeat 50% 0;
   background-size: cover;
   -webkot-background-size: cover;
@@ -469,6 +470,42 @@ a:hover {
   line-height: 60px;
   color: #fff;
   text-shadow: rgba(0, 0, 0, 0.4) 0 1px 1px;
+  text-align: center;
+}
+.container .small_button {
+  display: inline-block;
+  height: 43px;
+  background: url(../images/banner_purple_right.png) no-repeat 100% 0;
+  padding: 0 8px 0 0;
+  margin: 0 auto;
+  border: 0;
+}
+.container .small_button span {
+  display: inline-block;
+  height: 43px;
+  padding: 0 10px 0 20px;
+  background: url(../images/banner_purple_left.png) no-repeat 0 0;
+  font-family: "Belgrano", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  font-weight: normal;
+  line-height: 42px;
+  color: #fff;
+  text-shadow: rgba(0, 0, 0, 0.4) 0 1px 1px;
+  text-align: center;
+  min-width: 150px;
+}
+.container .small_button.orange {
+  background: url(../images/button_orange_right.png) no-repeat 100% 0;
+}
+.container .small_button.orange span {
+  background: url(../images/button_orange_left.png) no-repeat 0 0;
+}
+.container .small_button.orange span img {
+  position: relative;
+  top: 5px;
+  padding-right: 5px;
+}
+.container .actions {
   text-align: center;
 }
 .container small {
@@ -575,6 +612,12 @@ a:hover {
   height: 101px;
   padding: 0 10px;
   background: url(../images/vs.png) no-repeat 50% 0;
+}
+.container .users .vs.big {
+  width: 37px;
+  height: 254px;
+  padding: 0 10px;
+  background: url(../images/vs_big.png) no-repeat 50% 0;
 }
 .container hr {
   border: 0;
@@ -732,4 +775,104 @@ a:hover {
   text-shadow: rgba(0, 0, 0, 0.4) 0 1px 1px;
   text-align: center;
   text-transform: uppercase;
+}
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.modal .backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  filter: alpha(opacity=70);
+  -khtml-opacity: 0.7;
+  -moz-opacity: 0.7;
+  opacity: 0.7;
+  z-index: 10;
+}
+.modal .modal_content {
+  position: absolute;
+  top: 90px;
+  left: 50%;
+  width: 580px;
+  margin-left: -290px;
+  z-index: 20;
+  background: #fff;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  text-align: left;
+}
+.modal .modal_content .close {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  color: #bbb;
+}
+.modal .modal_content .title {
+  zoom: 1;
+  padding: 10px 20px 15px;
+  border-bottom: 1px solid #ddd;
+}
+.modal .modal_content .title:after {
+  display: block;
+  visibility: hidden;
+  height: 0;
+  clear: both;
+  content: ".";
+}
+.modal .modal_content .title p {
+  float: left;
+  font-family: "Belgrano", Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  font-weight: normal;
+  line-height: 50px;
+  color: #555;
+  text-shadow: #fff 0 1px 1px;
+  padding: 0 0 0 10px;
+}
+.modal .modal_content .title img {
+  float: left;
+}
+.modal .modal_content .split {
+  zoom: 1;
+}
+.modal .modal_content .split:after {
+  display: block;
+  visibility: hidden;
+  height: 0;
+  clear: both;
+  content: ".";
+}
+.modal .modal_content .split .left,
+.modal .modal_content .split .right {
+  float: left;
+  width: 249px;
+  padding: 10px 20px 20px;
+}
+.modal .modal_content .split .left .header,
+.modal .modal_content .split .right .header {
+  font-family: "Droid Sans", Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 24px;
+  color: #555;
+  padding: 0 0 10px;
+}
+.modal .modal_content .split .left p,
+.modal .modal_content .split .right p {
+  font-family: "Belgrano", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 20px;
+  color: #555;
+  padding: 0 0 25px;
+}
+.modal .modal_content .split .left {
+  border-right: 1px solid #ddd;
 }

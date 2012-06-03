@@ -11,6 +11,7 @@ html {
 }
 
 body {
+	position: relative;
 	background: url(../images/bg_img.png) no-repeat 50% 0;
 	background-size: cover;
 	-webkot-background-size: cover;
@@ -113,6 +114,47 @@ a:hover {
 		}
 	}
 	
+	.small_button {
+		display: inline-block;
+		height: 43px;
+		background: url(../images/banner_purple_right.png) no-repeat 100% 0;
+		padding: 0 8px 0 0;
+		margin: 0 auto;
+		border: 0;
+	
+		span {
+			display: inline-block;
+			height: 43px;
+			padding: 0 10px 0 20px;
+			background: url(../images/banner_purple_left.png) no-repeat 0 0;
+			
+			#font > .sans-belgrano(normal, 15px, 42px);
+			color: #fff;
+			text-shadow: rgba(0,0,0,0.4) 0 1px 1px;
+			text-align: center;
+			
+			min-width: 150px;
+		}
+
+		&.orange {
+			background: url(../images/button_orange_right.png) no-repeat 100% 0;
+
+			span {
+				background: url(../images/button_orange_left.png) no-repeat 0 0;
+				
+				img {
+					position: relative;
+					top: 5px;
+					padding-right: 5px;
+				}
+			}
+		}
+	}
+	
+	.actions {
+		text-align: center;
+	}
+	
 	small {
 		display: block;
 		padding: 10px 0 0;
@@ -205,12 +247,20 @@ a:hover {
 				}
 			}
 		}
+
 		.vs {
 			float: left;
 			width: 19px;
 			height: 101px;
 			padding: 0 10px;
 			background: url(../images/vs.png) no-repeat 50% 0;
+
+			&.big {
+				width: 37px;
+				height: 254px;
+				padding: 0 10px;
+				background: url(../images/vs_big.png) no-repeat 50% 0;
+			}
 		}
 	}
 	
@@ -344,4 +394,86 @@ a:hover {
 	}
 }
 
+
+.modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+
+	.backdrop {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+
+		background: #000;
+		.opacity(70);
+		
+		z-index: 10;
+	}
+	.modal_content {
+		position: absolute;
+		top: 90px;
+		left: 50%;
+		width: 580px;
+		margin-left: -290px;
+		z-index: 20;
+				
+		background: #fff;
+		.border-radius(5px);
+		text-align: left;
+
+		.close {
+			position: absolute;
+			top: 5px;
+			right: 10px;
+			color: #bbb;
+		}
+		.title {
+			.clearfix;
+			padding: 10px 20px 15px;			
+			border-bottom: 1px solid #ddd;
+
+			p {
+				float: left;
+				#font > .sans-belgrano(normal, 18px, 50px);
+				color: #555;
+				text-shadow: #fff 0 1px 1px;
+				padding: 0 0 0 10px;
+			}			
+			img {
+				float: left;
+			}
+		}
+		.split {
+			.clearfix;
+			
+			.left, .right {
+				float: left;
+				width: 249px;
+				padding: 10px 20px 20px;
+				
+				.header {
+					#font > .sans-droid(700, 18px, 24px);
+					color: #555;
+					padding: 0 0 10px;
+				}
+				p {
+					#font > .sans-belgrano(normal, 14px, 20px);
+					color: #555;
+					padding: 0 0 25px;
+				}
+			}
+			.left {
+				border-right: 1px solid #ddd;
+			}
+			.right {
+				
+			}
+		}
+	}
+}
 
