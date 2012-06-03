@@ -1315,3 +1315,15 @@ a:hover {
 .modal .modal_content .split .left {
   border-right: 1px solid #ddd;
 }
+#challenger_total,
+#owner_total {
+  display: inline-block;
+  padding: 15px 0 0;
+  font-family: "Belgrano", Helvetica, Arial, sans-serif;
+  font-size: 38px;
+  font-weight: normal;
+  line-height: 50px;
+  color: #fff;
+  text-shadow: rgba(0, 0, 0, 0.4) 0 1px 1px;
+  text-align: center;
+}
