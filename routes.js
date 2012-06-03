@@ -96,15 +96,19 @@ module.exports = function(app) {
 			getData('duel:' + id, this);
 		})
 		.seq(function(data) {
-			console.log(data);
 			if(!data.votes) { data.votes = {}; }
 
 			var vote = data.votes[req.session.fb_id];
 			var owner_total = 0;
 			var challenger_total = 0;
-			for(var i=0; i<data.votes.length; i++)
+			for(i in data.votes)
 			{
-				// if(data.votes[i].vote)
+				if(data.votes[i] == data.owner) {
+					owner_total++;
+				}
+				else {
+					challenger_total++;
+				}
 			}
 
 			return res.render('modal.ejs', { vote: vote, owner_total: owner_total, challenger_total: challenger_total, data: data });

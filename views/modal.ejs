@@ -139,7 +139,6 @@ var expired = function() {
 	var pusher = new Pusher('78011045678593d481df');
 	var channel = pusher.subscribe("<%= data.duel_id %>");
 	channel.bind('my_event', function(data) {
-		alert(data);
 	  if(data.is_owner) {
 	  	$("#owner_total").val(parseInt($("#owner_total").val()) + 1);
 	  }
