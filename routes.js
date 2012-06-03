@@ -159,5 +159,8 @@ module.exports = function(app) {
 	app.get('/templates/accept', function(req, res){
 		return res.render('accept.ejs');
 	});
+	app.get('/templates/waiting', function(req, res){
+		return res.render('waiting.ejs');
+	});
 
 };

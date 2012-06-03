@@ -126,7 +126,6 @@ a:hover {
 		width: 100px;
 		margin: 0 auto 20px;
 
-		.box-shadow(rgba(0,0,0,0.3) 0 1px 3px);
 		.border-radius(5px);
 
 		img {
@@ -134,28 +133,52 @@ a:hover {
 			width: 100px;
 			height: 100px;
 			.border-radius(5px);
+			.box-shadow(rgba(0,0,0,0.3) 0 1px 3px);
 		}
 	}
 	
 	.users {
 		.clearfix;
-		width: 240px;
+		width: 440px;
 		margin: 0 auto;
 		
 		.user {
 			float: left;
 			display: block;
-			width: 100px;
+			width: 200px;
 			margin: 0 auto 20px;
 	
-			.box-shadow(rgba(0,0,0,0.3) 0 1px 3px);
 			.border-radius(5px);
 	
 			img {
 				display: block;
 				width: 100px;
 				height: 100px;
+				margin: 0 auto 10px;
 				.border-radius(5px);
+				.box-shadow(rgba(0,0,0,0.3) 0 1px 3px);
+			}
+			.status {
+				display: inline-block;
+				height: 43px;
+				background: url(../images/banner_gray_right.png) no-repeat 100% 0;
+				padding: 0 8px 0 0;
+				margin: 0;
+				border: 0;
+		
+				span {
+					display: inline-block;
+					height: 43px;
+					padding: 0 10px 0 20px;
+					background: url(../images/banner_gray_left.png) no-repeat 0 0;
+					
+					#font > .sans-belgrano(normal, 15px, 40px);
+					color: #fff;
+					text-shadow: rgba(0,0,0,0.4) 0 1px 1px;
+					text-align: center;
+					
+					min-width: 150px;
+				}
 			}
 		}
 		.vs {

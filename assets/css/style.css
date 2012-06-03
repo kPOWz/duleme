@@ -484,9 +484,6 @@ a:hover {
   display: block;
   width: 100px;
   margin: 0 auto 20px;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
-  -moz-box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
-  box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
   -moz-border-radius: 5px;
   border-radius: 5px;
 }
@@ -496,10 +493,13 @@ a:hover {
   height: 100px;
   -moz-border-radius: 5px;
   border-radius: 5px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
 }
 .container .users {
   zoom: 1;
-  width: 240px;
+  width: 440px;
   margin: 0 auto;
 }
 .container .users:after {
@@ -512,11 +512,8 @@ a:hover {
 .container .users .user {
   float: left;
   display: block;
-  width: 100px;
+  width: 200px;
   margin: 0 auto 20px;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
-  -moz-box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
-  box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
   -moz-border-radius: 5px;
   border-radius: 5px;
 }
@@ -524,8 +521,34 @@ a:hover {
   display: block;
   width: 100px;
   height: 100px;
+  margin: 0 auto 10px;
   -moz-border-radius: 5px;
   border-radius: 5px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+}
+.container .users .user .status {
+  display: inline-block;
+  height: 43px;
+  background: url(../images/banner_gray_right.png) no-repeat 100% 0;
+  padding: 0 8px 0 0;
+  margin: 0;
+  border: 0;
+}
+.container .users .user .status span {
+  display: inline-block;
+  height: 43px;
+  padding: 0 10px 0 20px;
+  background: url(../images/banner_gray_left.png) no-repeat 0 0;
+  font-family: "Belgrano", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  font-weight: normal;
+  line-height: 40px;
+  color: #fff;
+  text-shadow: rgba(0, 0, 0, 0.4) 0 1px 1px;
+  text-align: center;
+  min-width: 150px;
 }
 .container .users .vs {
   float: left;
