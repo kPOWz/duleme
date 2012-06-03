@@ -1,12 +1,12 @@
 <div class="users">
 	<div class="user">
-		<img src=<%="https://graph.facebook.com/" + fb_owner + "/picture?type=normal"%> />
+		<img src=<%="https://graph.facebook.com/" + owner + "/picture?type=normal"%> />
 	</div>	
 
 	<div class="vs"></div>
 
 	<div class="user">
-		<img src=<%="https://graph.facebook.com/" + fb_challenger + "/picture?type=normal"%> />
+		<img src=<%="https://graph.facebook.com/" + challenger + "/picture?type=normal"%> />
 	</div>
 </div>
 
@@ -24,7 +24,7 @@
 	</div>
 	
 	<% if(date < new Date().getTime()) { %>
-		<div>This duel has expired!</div>
+		<h4>This duel has expired!</h4>
 	<% } else { %>
 		<div id="defaultCountdown" class="timer"></div>
 

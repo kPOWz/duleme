@@ -1,14 +1,88 @@
 <div class="users">
 	<div class="user">
-		<img src="/assets/images/brandon.png" />
-		<p class="status picked"><span><img src="/assets/images/shield.png" />Brave Choice.</span></p>
+		<img src=<%="https://graph.facebook.com/" + owner + "/picture?type=normal"%> />
+		<% if(accept) {%>
+			<p class="status"><span>Awaiting challenger</span></p>
+		<% } else { %>
+			<!-- <p class="status accepted"><span><img src="/assets/images/shield.png" />Brave Choice.</span></p> -->
+			<p class="status accepted"><span>Pick me!</span></p>
+
+			<div class="modal" style"display: none;">
+				<div class="backdrop"></div>
+				
+				<div class="modal_content">
+					<div class="close">&times;</div>
+
+					<div class="title">
+						<img src=<%="https://graph.facebook.com/" + owner + "/picture?type=square"%> />
+						<p>You're about to pick <%= owner_name %>. Choose wisely.</p>
+					</div>
+
+					<div class="split">
+						<div class="left">
+							<p class="header">Put your money where your mouth is!</p>
+							<p>That's some confidence you have. Contribute a dollar via Dwolla to the winner of this duel!</p>
+
+							<div class="actions">
+								<a href="#" class="small_button orange"><span><img src="/assets/images/dwolla_small.png" />Pick + $1 via Dwolla</span></a>
+							</div>
+						</div>
+						<div class="right">
+							<p class="header">Just make your pick and move along.</p>
+							<p>No worries. Every vote counts, as they say. Etch your choice in stone and submit your pick right meow.</p>
+							
+							<div class="actions">
+								<a href=<%= "/duel/" + duel_id + "/vote?vote=" + owner %> class="small_button purple"><span>Submit your pick</span></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		<% } %>
 	</div>	
 
 	<div class="vs"></div>
 
 	<div class="user">
-		<img src="/assets/images/brandon.png" />
-		<p class="status"><span>Denied</span></p>
+		<img src=<%="https://graph.facebook.com/" + challenger + "/picture?type=normal"%> />
+		<% if(accept) {%>
+			<p class="status"><span>MIA</span></p>
+		<% } else { %>
+			<!--<p class="status"><span>Denied</span></p>-->
+			<p class="status accepted"><span>Pick me!</span></p>
+
+			<div class="modal" style"display: none;">
+				<div class="backdrop"></div>
+				
+				<div class="modal_content">
+					<div class="close">&times;</div>
+
+					<div class="title">
+						<img src=<%="https://graph.facebook.com/" + challenger + "/picture?type=square"%> />
+						<p>You're about to pick <%= challenger_name %>. Choose wisely.</p>
+					</div>
+
+					<div class="split">
+						<div class="left">
+							<p class="header">Put your money where your mouth is!</p>
+							<p>That's some confidence you have. Contribute a dollar via Dwolla to the winner of this duel!</p>
+
+							<div class="actions">
+								<a href="#" class="small_button orange"><span><img src="/assets/images/dwolla_small.png" />Pick + $1 via Dwolla</span></a>
+							</div>
+						</div>
+						<div class="right">
+							<p class="header">Just make your pick and move along.</p>
+							<p>No worries. Every vote counts, as they say. Etch your choice in stone and submit your pick right meow.</p>
+							
+							<div class="actions">
+								<a href=<%= "/duel/" + duel_id + "/vote?vote=" + challenger %> class="small_button purple"><span>Submit your pick</span></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		<% } %>
 	</div>
 </div>
 
@@ -16,45 +90,26 @@
 	<div class="box">
 		<h6>The Duel</h6>
 		<hr />
-		<p>Who can eat the most hot wings in an hour?</p>
+		<p><%= desc %></p>
 	</div>
 	
-	<div class="timer">
-		<div class="block"><p>0<span>days</span></p></div>
-		<div class="block"><p>0<span>hours</span></p></div>
-		<div class="block"><p>59<span>minutes</span></p></div>
-		<div class="block"><p>7<span>seconds</span></p></div>
-	</div>
+	<% if(date < new Date().getTime()) { %>
+		<h4>This duel has expired!</h4>
+	<% } else { %>
+		<div id="defaultCountdown" class="timer"></div>
+	<% } %>
 </div>
 
-<div class="modal">
-	<div class="backdrop"></div>
-	
-	<div class="modal_content">
-		<div class="close">&times;</div>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+<script type="text/javascript" src="/assets/js/jquery.countdown.js"></script>
+<script src="/assets/js/modal.js"></script>
+<script type="text/javascript">
+$(function () {
+	var endTime = new Date(<%= date %>);
+	$('#defaultCountdown').countdown({until: endTime, onExpiry: expired});
+});
 
-		<div class="title">
-			<img src="/assets/images/brandon_small.png" />
-			<p>You're about to pick Brandon R. Choose wisely.</p>
-		</div>
-
-		<div class="split">
-			<div class="left">
-				<p class="header">Put your money where your mouth is!</p>
-				<p>That's some confidence you have. Contribute a dollar via Dwolla to the winner of this duel!</p>
-
-				<div class="actions">
-					<a href="#" class="small_button orange"><span><img src="/assets/images/dwolla_small.png" />Pick + $1 via Dwolla</span></a>
-				</div>
-			</div>
-			<div class="right">
-				<p class="header">Just make your pick and move along.</p>
-				<p>No worries. Every vote counts, as they say. Etch your choice in stone and submit your pick right meow.</p>
-				
-				<div class="actions">
-					<a href="#" class="small_button purple"><span>Submit your pick</span></a>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+var expired = function() {
+	window.location.reload();
+}
+</script>

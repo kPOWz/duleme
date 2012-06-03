@@ -35,17 +35,20 @@ module.exports = function(app) {
 				challenger_name = req.session.facebook_friends[i].name;
 		}
 
+		var id = new Date().getTime();
 		var duel = {
+			duel_id: id,
 			owner: req.session.fb_id,
 			owner_name: req.session.first_name,
 			challenger: req.body.challenger,
 			challenger_name: challenger_name,
 			desc: req.body.desc,
 			date: new Date(endDate[0], (+endDate[1] - 1), endDate[2], endTime[0], endTime[1], 0, 0).getTime(),
-			accept: false
+			accept: false,
+			votes: new Array()
 		}
 
-		var id = new Date().getTime();
+		
 		$().seq(function() {
 			saveData('duel:' + id, duel, this);
 		})
@@ -86,7 +89,7 @@ module.exports = function(app) {
 			getData('duel:' + id, this);
 		})
 		.seq(function(data) {
-			return res.send(data);
+			return res.render('modal.ejs', data);
 		});
 	});
 
@@ -98,16 +101,7 @@ module.exports = function(app) {
 		})
 		.seq(function(data) {
 			req.session.accept_duel = id;
-			var duel = {
-				fb_challenger: data.challenger,
-				challenger_name: data.challenger_name,
-				fb_owner: data.owner,
-				owner_name: data.owner_name,
-				desc: data.desc,
-				date: data.date
-			};
-
-			return res.render('duelaccept.ejs', duel);
+			return res.render('duelaccept.ejs', data);
 		});
 	});
 
@@ -129,8 +123,27 @@ module.exports = function(app) {
 		});
 	});
 
-	app.post('/duel/:id/vote', function(req, res){
+	app.get('/duel/:id/vote', function(req, res){
 		var id = req.params.id;
+		var vote = req.query['vote'];
+
+		req.session.vote_duel = id
+		req.session.vote_candidate = vote;
+
+		if(req.session.fb_token == null) {
+			return res.redirect('/auth/facebook');
+		} else {
+			$().seq(function() {
+				getData('duel:' + id, this);
+			})
+			.seq(function(data) {
+				data.votes[req.session.fb_id] = vote;
+				saveData('duel:' + id, data, this);
+			})
+			.seq(function() {
+				return res.redirect('/duel/' + id);
+			});
+		}
 	});
 
 	app.get('/cache', function(req, res){
@@ -148,7 +161,14 @@ module.exports = function(app) {
 	          req.session.facebook_friends = result.data;
 
 	          if(req.session.accept_duel != null)
+	          {
+	          	req.session.accept_duel = null;
 	          	return res.redirect('/duel/' + req.session.accept_duel + '/accepted');
+	          }
+	          else if(req.session.vote_duel != null && req.session.vote_candidate != null)
+	          {
+	          	return res.redirect('/duel/' + req.session.vote_duel + '/vote?vote=' + req.session.vote_candidate);
+	          }
 	          return res.redirect('/duel/create');
 	      });
   		});
