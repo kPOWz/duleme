@@ -1,8 +1,14 @@
 <div class="users">
 	<div class="user">
-		<img src=<%="https://graph.facebook.com/" + owner + "/picture?type=normal"%> />
-		<% if(accept) {%>
+		<img src=<%="https://graph.facebook.com/" + data.owner + "/picture?type=normal"%> />
+		<% if(!data.accept) {%>
 			<p class="status"><span>Awaiting challenger</span></p>
+		<% } else if(vote != null) { %>
+			<% if(vote == data.owner) { %>
+				<p class="status accepted"><span><img src="/assets/images/shield.png" />Brave Choice.</span></p>
+			<% } else { %>
+				<p class="status"><span>Denied</span></p>
+			<% } %>
 		<% } else { %>
 			<!-- <p class="status accepted"><span><img src="/assets/images/shield.png" />Brave Choice.</span></p> -->
 			<p class="status accepted"><span>Pick me!</span></p>
@@ -14,8 +20,8 @@
 					<div class="close">&times;</div>
 
 					<div class="title">
-						<img src=<%="https://graph.facebook.com/" + owner + "/picture?type=square"%> />
-						<p>You're about to pick <%= owner_name %>. Choose wisely.</p>
+						<img src=<%="https://graph.facebook.com/" + data.owner + "/picture?type=square"%> />
+						<p>You're about to pick <%= data.owner_name %>. Choose wisely.</p>
 					</div>
 
 					<div class="split">
@@ -32,7 +38,7 @@
 							<p>No worries. Every vote counts, as they say. Etch your choice in stone and submit your pick right meow.</p>
 							
 							<div class="actions">
-								<a href=<%= "/duel/" + duel_id + "/vote?vote=" + owner %> class="small_button purple"><span>Submit your pick</span></a>
+								<a href=<%= "/duel/" + data.duel_id + "/vote?vote=" + data.owner %> class="small_button purple"><span>Submit your pick</span></a>
 							</div>
 						</div>
 					</div>
@@ -44,11 +50,16 @@
 	<div class="vs"></div>
 
 	<div class="user">
-		<img src=<%="https://graph.facebook.com/" + challenger + "/picture?type=normal"%> />
-		<% if(accept) {%>
+		<img src=<%="https://graph.facebook.com/" + data.challenger + "/picture?type=normal"%> />
+		<% if(!data.accept) {%>
 			<p class="status"><span>MIA</span></p>
+		<% } else if(vote != null) { %>
+			<% if(vote == data.challenger) { %>
+				<p class="status accepted"><span><img src="/assets/images/shield.png" />Brave Choice.</span></p>
+			<% } else { %>
+				<p class="status"><span>Denied</span></p>
+			<% } %>
 		<% } else { %>
-			<!--<p class="status"><span>Denied</span></p>-->
 			<p class="status accepted"><span>Pick me!</span></p>
 
 			<div class="modal" style"display: none;">
@@ -58,8 +69,8 @@
 					<div class="close">&times;</div>
 
 					<div class="title">
-						<img src=<%="https://graph.facebook.com/" + challenger + "/picture?type=square"%> />
-						<p>You're about to pick <%= challenger_name %>. Choose wisely.</p>
+						<img src=<%="https://graph.facebook.com/" + data.challenger + "/picture?type=square"%> />
+						<p>You're about to pick <%= data.challenger_name %>. Choose wisely.</p>
 					</div>
 
 					<div class="split">
@@ -76,7 +87,7 @@
 							<p>No worries. Every vote counts, as they say. Etch your choice in stone and submit your pick right meow.</p>
 							
 							<div class="actions">
-								<a href=<%= "/duel/" + duel_id + "/vote?vote=" + challenger %> class="small_button purple"><span>Submit your pick</span></a>
+								<a href=<%= "/duel/" + data.duel_id + "/vote?vote=" + data.challenger %> class="small_button purple"><span>Submit your pick</span></a>
 							</div>
 						</div>
 					</div>
@@ -90,10 +101,10 @@
 	<div class="box">
 		<h6>The Duel</h6>
 		<hr />
-		<p><%= desc %></p>
+		<p><%= data.desc %></p>
 	</div>
 	
-	<% if(date < new Date().getTime()) { %>
+	<% if(data.date < new Date().getTime()) { %>
 		<h4>This duel has expired!</h4>
 	<% } else { %>
 		<div id="defaultCountdown" class="timer"></div>
@@ -105,7 +116,7 @@
 <script src="/assets/js/modal.js"></script>
 <script type="text/javascript">
 $(function () {
-	var endTime = new Date(<%= date %>);
+	var endTime = new Date(<%= data.date %>);
 	$('#defaultCountdown').countdown({until: endTime, onExpiry: expired});
 });
 

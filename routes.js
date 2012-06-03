@@ -72,7 +72,6 @@ module.exports = function(app) {
 				}
 
 		      facebook_session.graphCall('/' + req.body.challenger + '/feed/', message, 'post')(function(result) {
-		      	console.log(result);
 		      	top(false, result);
 		      });
 	  		});
@@ -89,7 +88,8 @@ module.exports = function(app) {
 			getData('duel:' + id, this);
 		})
 		.seq(function(data) {
-			return res.render('modal.ejs', data);
+			var vote = data.votes[req.session.fb_id];
+			return res.render('modal.ejs', { vote: vote, data: data });
 		});
 	});
 
@@ -118,8 +118,56 @@ module.exports = function(app) {
 			data.accept = true;
 			saveData('duel:' + id, data, this);
 		})
-		.seq(function() {
-			return res.redirect('/duel/' + id);
+		.seq(function(data) {
+			var top = this;
+			var FacebookClient = require("facebook-client").FacebookClient;
+			var facebook_client = new FacebookClient(
+			    "246956725404450", // configure like your fb app page states
+			    "a603f39d66596641f529662ef62ea5a2", // configure like your fb app page states
+			    {
+			        "timeout": 10000 // modify the global timeout for facebook calls (Default: 10000)
+			    }
+			);
+
+			facebook_client.getSessionByAccessToken(req.session.fb_token)(function(facebook_session) {
+				var message = {
+				    message: 'The dual is on between ' + data.owner_name + ' and ' + data.challenger_name + '!',
+				    name: 'DuelMe!',
+				    link: 'http://duelmeapp.herokuapp.com/duel/' + id,
+				    description: req.body.desc
+				}
+
+		      facebook_session.graphCall('/' + data.owner + '/feed/', message, 'post')(function(result) {
+		      	top(false, data);
+		      });
+	  		});
+		})
+		.seq(function(data) {
+			var top = this;
+			var FacebookClient = require("facebook-client").FacebookClient;
+			var facebook_client = new FacebookClient(
+			    "246956725404450", // configure like your fb app page states
+			    "a603f39d66596641f529662ef62ea5a2", // configure like your fb app page states
+			    {
+			        "timeout": 10000 // modify the global timeout for facebook calls (Default: 10000)
+			    }
+			);
+
+			facebook_client.getSessionByAccessToken(req.session.fb_token)(function(facebook_session) {
+				var message = {
+				    message: 'The dual is on between ' + data.owner_name + ' and ' + data.challenger_name + '!',
+				    name: 'DuelMe!',
+				    link: 'http://duelmeapp.herokuapp.com/duel/' + id,
+				    description: req.body.desc
+				}
+
+		      facebook_session.graphCall('/' + data.challenger + '/feed/', message, 'post')(function(result) {
+		      	top(false, data);
+		      });
+	  		});
+		})
+		.seq(function(data) {
+			return res.redirect('/duel/' + data.duel_id);
 		});
 	});
 
