@@ -1,6 +1,17 @@
 module.exports = function(app) {
 
 	var $ = require('seq');
+	var redis = require('redis-url').connect('redis://bweber36:67920d08b0d7f9d1d73257352cfd7a88@fish.redistogo.com:9011/');
+
+	var FacebookClient = require("facebook-client").FacebookClient;
+	var facebook_client = new FacebookClient(
+	    "246956725404450", // configure like your fb app page states
+	    "a603f39d66596641f529662ef62ea5a2", // configure like your fb app page states
+	    {
+	        "timeout": 10000 // modify the global timeout for facebook calls (Default: 10000)
+	    }
+	);
+
 	var Pusher = require('node-pusher');
 
 	var pusher = new Pusher({
@@ -59,14 +70,6 @@ module.exports = function(app) {
 		})
 		.seq(function() {
 			var top = this;
-			var FacebookClient = require("facebook-client").FacebookClient;
-			var facebook_client = new FacebookClient(
-			    "246956725404450", // configure like your fb app page states
-			    "a603f39d66596641f529662ef62ea5a2", // configure like your fb app page states
-			    {
-			        "timeout": 10000 // modify the global timeout for facebook calls (Default: 10000)
-			    }
-			);
 
 			facebook_client.getSessionByAccessToken(req.session.fb_token)(function(facebook_session) {
 				var message = {
@@ -135,14 +138,6 @@ module.exports = function(app) {
 		})
 		.seq(function(data) {
 			var top = this;
-			var FacebookClient = require("facebook-client").FacebookClient;
-			var facebook_client = new FacebookClient(
-			    "246956725404450", // configure like your fb app page states
-			    "a603f39d66596641f529662ef62ea5a2", // configure like your fb app page states
-			    {
-			        "timeout": 10000 // modify the global timeout for facebook calls (Default: 10000)
-			    }
-			);
 
 			facebook_client.getSessionByAccessToken(req.session.fb_token)(function(facebook_session) {
 				var message = {
@@ -159,14 +154,6 @@ module.exports = function(app) {
 		})
 		.seq(function(data) {
 			var top = this;
-			var FacebookClient = require("facebook-client").FacebookClient;
-			var facebook_client = new FacebookClient(
-			    "246956725404450", // configure like your fb app page states
-			    "a603f39d66596641f529662ef62ea5a2", // configure like your fb app page states
-			    {
-			        "timeout": 10000 // modify the global timeout for facebook calls (Default: 10000)
-			    }
-			);
 
 			facebook_client.getSessionByAccessToken(req.session.fb_token)(function(facebook_session) {
 				var message = {
@@ -214,7 +201,7 @@ module.exports = function(app) {
 				  is_owner: vote == data.owner
 				};
 
-				this.ok();
+				channel.trigger('message', data, this);
 			})
 			.seq(function() {
 				return res.redirect('/duel/' + id);
@@ -223,25 +210,9 @@ module.exports = function(app) {
 	});
 
 	app.get('/cache', function(req, res){
-		var FacebookClient = require("facebook-client").FacebookClient;
-		var facebook_client = new FacebookClient(
-		    "246956725404450", // configure like your fb app page states
-		    "a603f39d66596641f529662ef62ea5a2", // configure like your fb app page states
-		    {
-		        "timeout": 10000 // modify the global timeout for facebook calls (Default: 10000)
-		    }
-		);
 
 		facebook_client.getSessionByAccessToken(req.session.fb_token)(function(facebook_session) {
 	      facebook_session.graphCall("/me/friends", 'GET')(function(result) {
-	      	console.log(result);
-
-	    //       result.data.sort(function(a,b){ 
-			  // 	if (a.name.toLowerCase() == b.name.toLowerCase()){
-			  //   	return 0;
-			  //   }
-			  //   return a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1;  
-			  // });
 
 			  req.session.facebook_friends = result.data;
 
@@ -290,8 +261,24 @@ module.exports = function(app) {
 			});
 	}
 
-	var uniqueStr = function S4() {
-   		return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
-	}
+	// Templates
+	app.get('/templates/accept', function(req, res){
+		return res.render('accept.ejs');
+	});
+	app.get('/templates/waiting', function(req, res){
+		return res.render('waiting.ejs');
+	});
+	app.get('/templates/initial', function(req, res){
+		return res.render('initial.ejs');
+	});
+	app.get('/templates/picked', function(req, res){
+		return res.render('picked.ejs');
+	});
+	app.get('/templates/modal', function(req, res){
+		return res.render('modal.ejs');
+	});
+	app.get('/templates/winner', function(req, res){
+		return res.render('winner.ejs');
+	});
 
 };
