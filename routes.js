@@ -193,16 +193,16 @@ module.exports = function(app) {
 				data.votes[req.session.fb_id] = vote;
 				saveData('duel:' + id, data, this);
 			})
-			.seq(function() {
-				var data = this.vars.data;
-				var channel = id;
-				var event = 'message';
-				var data = {
-				  is_owner: vote == data.owner
-				};
+			// .seq(function() {
+			// 	var data = this.vars.data;
+			// 	var channel = id;
+			// 	var event = 'message';
+			// 	var data = {
+			// 	  is_owner: vote == data.owner
+			// 	};
 
-				channel.trigger('message', data, this);
-			})
+			// 	channel.trigger('message', data, this);
+			// })
 			.seq(function() {
 				return res.redirect('/duel/' + id);
 			});
