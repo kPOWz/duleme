@@ -152,8 +152,7 @@ module.exports = function(app) {
 			        "timeout": 10000 // modify the global timeout for facebook calls (Default: 10000)
 			    }
 			);
-console.log('fb session: ***************');
-console.log(req.session);
+
 			facebook_client.getSessionByAccessToken(req.session.fb_token)(function(facebook_session) {
 				var message = {
 				    message: 'The dual is on between ' + data.owner_name + ' and ' + data.challenger_name + '!',
