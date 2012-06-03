@@ -88,8 +88,16 @@ module.exports = function(app) {
 			getData('duel:' + id, this);
 		})
 		.seq(function(data) {
+			console.log(data);
 			var vote = data.votes[req.session.fb_id];
-			return res.render('modal.ejs', { vote: vote, data: data });
+			var owner_total = 0;
+			var challenger_total = 0;
+			for(var i=0; i<data.votes.length; i++)
+			{
+				// if(data.votes[i].vote)
+			}
+
+			return res.render('modal.ejs', { vote: vote, owner_total: owner_total, challenger_total: challenger_total, data: data });
 		});
 	});
 
@@ -178,6 +186,7 @@ module.exports = function(app) {
 		req.session.vote_duel = id
 		req.session.vote_candidate = vote;
 
+		console.log(req.session.fb_token);
 		if(req.session.fb_token == null) {
 			return res.redirect('/auth/facebook');
 		} else {
@@ -206,6 +215,7 @@ module.exports = function(app) {
 
 		facebook_client.getSessionByAccessToken(req.session.fb_token)(function(facebook_session) {
 	      facebook_session.graphCall("/me/friends", 'GET')(function(result) {
+	      	console.log(result);
 	          req.session.facebook_friends = result.data;
 
 	          req.session.facebook_friends.sort(function(a,b){ 
