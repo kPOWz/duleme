@@ -206,14 +206,16 @@ module.exports = function(app) {
 
 		facebook_client.getSessionByAccessToken(req.session.fb_token)(function(facebook_session) {
 	      facebook_session.graphCall("/me/friends", 'GET')(function(result) {
-	          req.session.facebook_friends = (result && result.data) ? result.data : {};
+		      	if(result && result.data) {
+		          req.session.facebook_friends = result.data;
 
-	          req.session.facebook_friends.sort(function(a,b){ 
-			  	if (a.name.toLowerCase() == b.name.toLowerCase()){
-			    	return 0;
-			    }
-			    return a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1;  
-			  });
+		          req.session.facebook_friends.sort(function(a,b){ 
+				  	if (a.name.toLowerCase() == b.name.toLowerCase()){
+				    	return 0;
+				    }
+				    return a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1;  
+				  });		      	
+		      	}
 
 	          if(req.session.accept_duel != null)
 	          {
