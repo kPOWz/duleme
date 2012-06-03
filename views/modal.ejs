@@ -1,7 +1,7 @@
 <div class="users">
 	<div class="user">
 		<img src=<%="https://graph.facebook.com/" + data.owner + "/picture?type=normal"%> />
-		<% if(data.accept) {%>
+		<% if(!data.accept) {%>
 			<p class="status"><span>Awaiting challenger</span></p>
 		<% } else if(vote != null) { %>
 			<% if(vote == data.owner) { %>
@@ -51,7 +51,7 @@
 
 	<div class="user">
 		<img src=<%="https://graph.facebook.com/" + data.challenger + "/picture?type=normal"%> />
-		<% if(data.accept) {%>
+		<% if(!data.accept) {%>
 			<p class="status"><span>MIA</span></p>
 		<% } else if(vote != null) { %>
 			<% if(vote == data.challenger) { %>
