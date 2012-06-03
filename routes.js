@@ -238,7 +238,7 @@ module.exports = function(app) {
 	var getData = function(id, fn) {
 
 		redis.get(id, function(err, data) {
-			return fn(err, JSON.parse(data.toString()));
+			return fn(err, data ? JSON.parse(data) : {});
 	    });
 	}
 
