@@ -206,6 +206,8 @@ module.exports = function(app) {
 
 		facebook_client.getSessionByAccessToken(req.session.fb_token)(function(facebook_session) {
 	      facebook_session.graphCall("/me/friends", 'GET')(function(result) {
+	      console.log('results from fb: **************');
+	      console.log(result);
 		      	if(result && result.data) {
 		          req.session.facebook_friends = result.data;
 
