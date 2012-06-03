@@ -65,7 +65,6 @@ module.exports = function(app) {
 			votes: new Array()
 		}
 
-		
 		$().seq(function() {
 			saveData('duel:' + id, duel, this);
 		})
@@ -233,18 +232,35 @@ module.exports = function(app) {
 	})
 
 	var saveData = function(id, data, fn) {
+		var redis = require('redis-url').connect('redis://bweber36:67920d08b0d7f9d1d73257352cfd7a88@fish.redistogo.com:9011/');
 
-	    redis.set(id, JSON.stringify(data), fn);
+		$()
+			.seq(function() {
+			    redis.set(id, JSON.stringify(data), this);
+			})
+			.seq(function(data) {
+				redis.quit();
+
+				if(fn) return fn(false, data);
+			})
 	};
 
 	var getData = function(id, fn) {
+		var redis = require('redis-url').connect('redis://bweber36:67920d08b0d7f9d1d73257352cfd7a88@fish.redistogo.com:9011/');
 
-		redis.get(id, function(err, data) {
-			return fn(err, data ? JSON.parse(data) : {});
-	    });
+		$()
+			.seq(function() {
+			   redis.get(id, this);
+			})
+			.seq(function(data) {
+				redis.quit();
+
+				if(fn) {
+					return fn(false, data ? JSON.parse(data) : {});
+				}
+			});
 	}
-	
-	
+
 	// Templates
 	app.get('/templates/accept', function(req, res){
 		return res.render('accept.ejs');
