@@ -1,8 +1,6 @@
 module.exports = function(app) {
 
 	var $ = require('seq');
-	var redis = require('redis-url').connect('redis://bweber36:67920d08b0d7f9d1d73257352cfd7a88@fish.redistogo.com:9011/');
-
 	var Pusher = require('node-pusher');
 
 	var pusher = new Pusher({
@@ -56,7 +54,6 @@ module.exports = function(app) {
 			votes: new Array()
 		}
 
-		
 		$().seq(function() {
 			saveData('duel:' + id, duel, this);
 		})
@@ -262,41 +259,37 @@ module.exports = function(app) {
 	})
 
 	var saveData = function(id, data, fn) {
+		var redis = require('redis-url').connect('redis://bweber36:67920d08b0d7f9d1d73257352cfd7a88@fish.redistogo.com:9011/');
 
-	    redis.set(id, JSON.stringify(data), fn);
+		$()
+			.seq(function() {
+			    redis.set(id, JSON.stringify(data), this);
+			})
+			.seq(function(data) {
+				redis.close();
+
+				if(fn) return fn(false, data);
+			})
 	};
 
 	var getData = function(id, fn) {
+		var redis = require('redis-url').connect('redis://bweber36:67920d08b0d7f9d1d73257352cfd7a88@fish.redistogo.com:9011/');
 
-		redis.get(id, function(err, data) {
-			return fn(err, data ? JSON.parse(data) : {});
-	    });
+		$()
+			.seq(function() {
+			   redis.get(id, this);
+			})
+			.seq(function(data) {
+				redis.close();
+
+				if(fn) {
+					return fn(false, data ? JSON.parse(data) : {});
+				}
+			});
 	}
 
 	var uniqueStr = function S4() {
    		return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
 	}
-	
-	
-	
-	// Templates
-	app.get('/templates/accept', function(req, res){
-		return res.render('accept.ejs');
-	});
-	app.get('/templates/waiting', function(req, res){
-		return res.render('waiting.ejs');
-	});
-	app.get('/templates/initial', function(req, res){
-		return res.render('initial.ejs');
-	});
-	app.get('/templates/picked', function(req, res){
-		return res.render('picked.ejs');
-	});
-	app.get('/templates/modal', function(req, res){
-		return res.render('modal.ejs');
-	});
-	app.get('/templates/winner', function(req, res){
-		return res.render('winner.ejs');
-	});
 
 };
