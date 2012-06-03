@@ -1,8 +1,7 @@
 module.exports = function(app) {
 
 	var $ = require('seq');
-	var redis = require("redis"),
-		client = redis.createClient()
+	var redis = require('redis-url').connect('redis://bweber36:67920d08b0d7f9d1d73257352cfd7a88@fish.redistogo.com:9011/');
 
 	app.get('/', function(req, res) {
 		if(req.session != null && req.session.fb_token != null)
@@ -88,12 +87,12 @@ module.exports = function(app) {
 
 	var saveData = function(id, data, fn) {
 
-	    client.set(id, JSON.stringify(data), fn);
+	    redis.set(id, JSON.stringify(data), fn);
 	};
 
 	var getData = function(id, fn) {
 
-		client.get(id, function(err, data) {
+		redis.get(id, function(err, data) {
 			return fn(err, JSON.parse(data.toString()));
 	    });
 	}

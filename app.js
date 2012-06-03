@@ -27,7 +27,7 @@ everyauth.facebook
 .redirectPath('/cache');
 
 
-var port = process.env.PORT || 5000;
+var port = process.env.PORT || 3000;
 
 app.configure(function () {
   app.use("/assets", express.static(__dirname + '/assets'));
