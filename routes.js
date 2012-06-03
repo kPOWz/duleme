@@ -266,7 +266,7 @@ module.exports = function(app) {
 			    redis.set(id, JSON.stringify(data), this);
 			})
 			.seq(function(data) {
-				redis.close();
+				redis.quit();
 
 				if(fn) return fn(false, data);
 			})
@@ -280,7 +280,7 @@ module.exports = function(app) {
 			   redis.get(id, this);
 			})
 			.seq(function(data) {
-				redis.close();
+				redis.quit();
 
 				if(fn) {
 					return fn(false, data ? JSON.parse(data) : {});
