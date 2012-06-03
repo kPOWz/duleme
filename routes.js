@@ -236,14 +236,15 @@ module.exports = function(app) {
 		facebook_client.getSessionByAccessToken(req.session.fb_token)(function(facebook_session) {
 	      facebook_session.graphCall("/me/friends", 'GET')(function(result) {
 	      	console.log(result);
-	          req.session.facebook_friends = result.data;
 
-	          req.session.facebook_friends.sort(function(a,b){ 
+	          result.data.sort(function(a,b){ 
 			  	if (a.name.toLowerCase() == b.name.toLowerCase()){
 			    	return 0;
 			    }
 			    return a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1;  
 			  });
+
+			  req.session.facebook_friends = result.data;
 
 	          if(req.session.accept_duel != null)
 	          {
