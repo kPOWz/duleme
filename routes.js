@@ -187,6 +187,8 @@ module.exports = function(app) {
 				getData('duel:' + id, this);
 			})
 			.seq(function(data) {
+				if(!data.votes) { data.votes = {}; }
+
 				data.votes[req.session.fb_id] = vote;
 				saveData('duel:' + id, data, this);
 			})
