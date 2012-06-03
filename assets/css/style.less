@@ -1,4 +1,5 @@
 @import "bootstrap.less";
+@import "chosen.less";
 #reset > .global-reset();
 
 html, body {
@@ -309,7 +310,7 @@ a:hover {
 			padding: 0 0 3px;
 		}
 		
-		input, textarea {
+		& > input, & > textarea, .date > input, .time > input {
 			display: block;
 			outline: none;
 

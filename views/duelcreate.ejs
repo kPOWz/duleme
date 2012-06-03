@@ -28,7 +28,7 @@
 		
 		<div class="input">
 			<label for="challenger">CHOOSE A CHALLENGER</label>
-			<select name="challenger" id="challenger">
+			<select name="challenger" id="challenger" style="width: 425px;">
 				<% for(var i=0; i < friends.length; i++) { %>
 					<option value=<%= friends[i].id %>> <%= friends[i].name %></option>
 				<% } %>
@@ -39,3 +39,11 @@
 	<button type="submit" class="button"><span>Create this Duel!</span></button>
 	<small>(Your challenger will be notified via Facebook.)</small>
 </form>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+<script src="/assets/js/chosen.js"></script>
+<script type="text/javascript">
+$(function() {
+	$("#challenger").chosen();
+});
+</script>
