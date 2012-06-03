@@ -3,6 +3,14 @@ module.exports = function(app) {
 	var $ = require('seq');
 	var redis = require('redis-url').connect('redis://bweber36:67920d08b0d7f9d1d73257352cfd7a88@fish.redistogo.com:9011/');
 
+	var Pusher = require('node-pusher');
+
+	var pusher = new Pusher({
+	  appId: '21674',
+	  key: '78011045678593d481df',
+	  secret: '7945442b6d6b9eba5d36'
+	});
+
 	app.get('/', function(req, res) {
 		if(req.session != null && req.session.fb_token != null)
 			return res.redirect('/duel/create');
@@ -88,10 +96,18 @@ module.exports = function(app) {
 			getData('duel:' + id, this);
 		})
 		.seq(function(data) {
+			console.log(data);
 			if(!data.votes) { data.votes = {}; }
 
 			var vote = data.votes[req.session.fb_id];
-			return res.render('modal.ejs', { vote: vote, data: data });
+			var owner_total = 0;
+			var challenger_total = 0;
+			for(var i=0; i<data.votes.length; i++)
+			{
+				// if(data.votes[i].vote)
+			}
+
+			return res.render('modal.ejs', { vote: vote, owner_total: owner_total, challenger_total: challenger_total, data: data });
 		});
 	});
 
@@ -140,7 +156,7 @@ module.exports = function(app) {
 				}
 
 		      facebook_session.graphCall('/' + data.owner + '/feed/', message, 'post')(function(result) {
-		      	top(false, data);
+		      	top(false, result);
 		      });
 	  		});
 		})
@@ -164,7 +180,7 @@ module.exports = function(app) {
 				}
 
 		      facebook_session.graphCall('/' + data.challenger + '/feed/', message, 'post')(function(result) {
-		      	top(false, data);
+		      	top(false, result);
 		      });
 	  		});
 		})
@@ -180,10 +196,11 @@ module.exports = function(app) {
 		req.session.vote_duel = id
 		req.session.vote_candidate = vote;
 
+		console.log(req.session.fb_token);
 		if(req.session.fb_token == null) {
 			return res.redirect('/auth/facebook');
 		} else {
-			$().seq(function() {
+			$().seq('data', function() {
 				getData('duel:' + id, this);
 			})
 			.seq(function(data) {
@@ -191,6 +208,14 @@ module.exports = function(app) {
 
 				data.votes[req.session.fb_id] = vote;
 				saveData('duel:' + id, data, this);
+			})
+			.seq(function() {
+				var data = this.vars.data;
+				var channel = id;
+				var event = 'message';
+				var data = {
+				  is_owner: vote == data.owner
+				};
 			})
 			.seq(function() {
 				return res.redirect('/duel/' + id);
@@ -210,14 +235,16 @@ module.exports = function(app) {
 
 		facebook_client.getSessionByAccessToken(req.session.fb_token)(function(facebook_session) {
 	      facebook_session.graphCall("/me/friends", 'GET')(function(result) {
-	          req.session.facebook_friends = result.data;
+	      	console.log(result);
 
-	          req.session.facebook_friends.sort(function(a,b){ 
-			  	if (a.name.toLowerCase() == b.name.toLowerCase()){
-			    	return 0;
-			    }
-			    return a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1;  
-			  });
+	    //       result.data.sort(function(a,b){ 
+			  // 	if (a.name.toLowerCase() == b.name.toLowerCase()){
+			  //   	return 0;
+			  //   }
+			  //   return a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1;  
+			  // });
+
+			  req.session.facebook_friends = result.data;
 
 	          if(req.session.accept_duel != null)
 	          {

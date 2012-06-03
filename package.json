@@ -13,6 +13,7 @@
     "facebook-client": "1.6.0",
     "redis": "0.7.2",
     "seq": "0.3.5",
-    "redis-url": "0.1.0"
+    "redis-url": "0.1.0",
+    "node-pusher": "0.0.2"
   }
 }
