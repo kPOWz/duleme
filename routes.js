@@ -33,7 +33,8 @@ module.exports = function(app) {
 			owner: req.session.fb_id,
 			challenger: req.body.challenger,
 			desc: req.body.desc,
-			date: new Date(endDate[0], (+endDate[1] - 1), endDate[2], endTime[0], endTime[1], 0, 0)
+			date: new Date(endDate[0], (+endDate[1] - 1), endDate[2], endTime[0], endTime[1], 0, 0),
+			accept: false
 		}
 
 		var id = new Date().getTime();
@@ -56,8 +57,7 @@ module.exports = function(app) {
 				    message: req.session.first_name + ' has challenged you to a duel!',
 				    name: 'DuelMe!',
 				    link: 'http://duelmeapp.herokuapp.com/duel/' + id + '/accept',
-				    description: req.body.desc,
-				    accept: false
+				    description: req.body.desc
 				}
 
 		      facebook_session.graphCall('/' + req.body.challenger + '/feed/', message, 'post')(function(result) {
