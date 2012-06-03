@@ -3,6 +3,6 @@ $(".modal .close").live('click', function() {
 });
 
 $(".status.accepted span").click(function() {
-	$(".modal").fadeIn();
+	$(this).parent().parent().find(".modal").fadeIn();
 });
 
