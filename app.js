@@ -7,6 +7,7 @@ var everyauth = require('everyauth');
 everyauth.facebook
 .appId('246956725404450')
 .appSecret('a603f39d66596641f529662ef62ea5a2')
+.scope('read_stream,publish_stream')
 .handleAuthCallbackError( function (req, res) {
   // If a user denies your app, Facebook will redirect the user to
   // /auth/facebook/callback?error_reason=user_denied&error=access_denied&error_description=The+user+denied+your+request.
