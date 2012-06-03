@@ -57,7 +57,7 @@ module.exports = function(app) {
 				    name: 'DuelMe!',
 				    link: 'http://duelmeapp.herokuapp.com/duel/' + id + '/accept',
 				    description: req.body.desc,
-				    accept = false
+				    accept: false
 				}
 
 		      facebook_session.graphCall('/' + req.body.challenger + '/feed/', message, 'post')(function(result) {
@@ -152,4 +152,12 @@ module.exports = function(app) {
 	var uniqueStr = function S4() {
    		return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
 	}
+	
+	
+	
+	// Templates
+	app.get('/templates/accept', function(req, res){
+		return res.render('accept.ejs');
+	});
+
 };
