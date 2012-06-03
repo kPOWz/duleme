@@ -213,6 +213,8 @@ module.exports = function(app) {
 				var data = {
 				  is_owner: vote == data.owner
 				};
+
+				this.ok();
 			})
 			.seq(function() {
 				return res.redirect('/duel/' + id);
