@@ -202,9 +202,12 @@ module.exports = function(app) {
 				  is_owner: vote == data.owner
 				};
 
+/*
 				channel.trigger('message', data, function(err, req, res) {
 					top.ok();
 				});
+*/
+this.ok();
 			})
 			.seq(function() {
 				return res.redirect('/duel/' + id);
