@@ -371,7 +371,9 @@ html {
   background: url(../images/bg.png) repeat 0 0;
 }
 body {
-  background: url(../images/bg_img.png) no-repeat 50% 50%;
+  background: url(../images/bg_img.png) no-repeat 50% 0;
+  background-size: cover;
+  -webkot-background-size: cover;
 }
 a,
 a:visited,
@@ -484,22 +486,22 @@ a:hover {
   display: block;
   width: 100px;
   margin: 0 auto 20px;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
-  -moz-box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
-  box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
   -moz-border-radius: 5px;
   border-radius: 5px;
 }
-.container .user img {
+.container .user  > img {
   display: block;
   width: 100px;
   height: 100px;
   -moz-border-radius: 5px;
   border-radius: 5px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
 }
 .container .users {
   zoom: 1;
-  width: 240px;
+  width: 440px;
   margin: 0 auto;
 }
 .container .users:after {
@@ -512,20 +514,60 @@ a:hover {
 .container .users .user {
   float: left;
   display: block;
-  width: 100px;
+  width: 200px;
   margin: 0 auto 20px;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
-  -moz-box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
-  box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
   -moz-border-radius: 5px;
   border-radius: 5px;
 }
-.container .users .user img {
+.container .users .user  > img {
   display: block;
   width: 100px;
   height: 100px;
+  margin: 0 auto 10px;
   -moz-border-radius: 5px;
   border-radius: 5px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+}
+.container .users .user .status {
+  display: inline-block;
+  height: 43px;
+  background: url(../images/banner_gray_right.png) no-repeat 100% 0;
+  padding: 0 8px 0 0;
+  margin: 0;
+  border: 0;
+}
+.container .users .user .status span {
+  display: inline-block;
+  height: 43px;
+  padding: 0 10px 0 20px;
+  background: url(../images/banner_gray_left.png) no-repeat 0 0;
+  font-family: "Belgrano", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  font-weight: normal;
+  line-height: 40px;
+  color: #fff;
+  text-shadow: rgba(0, 0, 0, 0.4) 0 1px 1px;
+  text-align: center;
+  min-width: 150px;
+}
+.container .users .user .status.accepted {
+  background: url(../images/banner_purple_right.png) no-repeat 100% 0;
+}
+.container .users .user .status.accepted span {
+  background: url(../images/banner_purple_left.png) no-repeat 0 0;
+}
+.container .users .user .status.picked {
+  background: url(../images/banner_blue_right.png) no-repeat 100% 0;
+}
+.container .users .user .status.picked span {
+  background: url(../images/banner_blue_left.png) no-repeat 0 0;
+}
+.container .users .user .status.picked span img {
+  position: relative;
+  top: 6px;
+  padding-right: 5px;
 }
 .container .users .vs {
   float: left;
@@ -624,7 +666,7 @@ a:hover {
   width: 160px;
 }
 #accept .box {
-  padding: 25px 20px;
+  padding: 25px 57px;
 }
 #accept .box h6 {
   font-family: "Droid Sans", Helvetica, Arial, sans-serif;
@@ -648,7 +690,7 @@ a:hover {
 #accept .timer {
   zoom: 1;
   padding: 0 0 30px;
-  width: 640px;
+  width: 560px;
   margin: 0 auto;
 }
 #accept .timer:after {
@@ -662,7 +704,7 @@ a:hover {
   float: left;
   width: 120px;
   height: 120px;
-  margin: 0 20px;
+  margin: 0 10px;
   background: url(../images/dark.png) repeat 0 0;
   -moz-border-radius: 5px;
   border-radius: 5px;

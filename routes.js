@@ -176,5 +176,14 @@ module.exports = function(app) {
 	app.get('/templates/accept', function(req, res){
 		return res.render('accept.ejs');
 	});
+	app.get('/templates/waiting', function(req, res){
+		return res.render('waiting.ejs');
+	});
+	app.get('/templates/initial', function(req, res){
+		return res.render('initial.ejs');
+	});
+	app.get('/templates/picked', function(req, res){
+		return res.render('picked.ejs');
+	});
 
 };
