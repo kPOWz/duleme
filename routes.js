@@ -237,12 +237,12 @@ module.exports = function(app) {
 	      facebook_session.graphCall("/me/friends", 'GET')(function(result) {
 	      	console.log(result);
 
-	          result.data.sort(function(a,b){ 
-			  	if (a.name.toLowerCase() == b.name.toLowerCase()){
-			    	return 0;
-			    }
-			    return a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1;  
-			  });
+	    //       result.data.sort(function(a,b){ 
+			  // 	if (a.name.toLowerCase() == b.name.toLowerCase()){
+			  //   	return 0;
+			  //   }
+			  //   return a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1;  
+			  // });
 
 			  req.session.facebook_friends = result.data;
 
