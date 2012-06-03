@@ -194,6 +194,7 @@ module.exports = function(app) {
 				saveData('duel:' + id, data, this);
 			})
 			.seq(function() {
+				var top = this;
 				var data = this.vars.data;
 				var channel = id;
 				var event = 'message';
@@ -201,7 +202,9 @@ module.exports = function(app) {
 				  is_owner: vote == data.owner
 				};
 
-				channel.trigger('message', data, this);
+				channel.trigger('message', data, function(err, req, res) {
+					top.ok();
+				});
 			})
 			.seq(function() {
 				return res.redirect('/duel/' + id);
