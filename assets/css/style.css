@@ -809,6 +809,7 @@ a:hover {
   text-align: left;
 }
 .modal .modal_content .close {
+  cursor: pointer;
   position: absolute;
   top: 5px;
   right: 10px;
