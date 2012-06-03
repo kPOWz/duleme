@@ -208,10 +208,18 @@ module.exports = function(app) {
 	      facebook_session.graphCall("/me/friends", 'GET')(function(result) {
 	          req.session.facebook_friends = result.data;
 
+	          req.session.facebook_friends.sort(function(a,b){ 
+			  	if (a.name.toLowerCase() == b.name.toLowerCase()){
+			    	return 0;
+			    }
+			    return a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1;  
+			  });
+
 	          if(req.session.accept_duel != null)
 	          {
+	          	var id = req.session.accept_duel;
 	          	req.session.accept_duel = null;
-	          	return res.redirect('/duel/' + req.session.accept_duel + '/accepted');
+	          	return res.redirect('/duel/' + id + '/accepted');
 	          }
 	          else if(req.session.vote_duel != null && req.session.vote_candidate != null)
 	          {
