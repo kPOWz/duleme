@@ -371,7 +371,9 @@ html {
   background: url(../images/bg.png) repeat 0 0;
 }
 body {
-  background: url(../images/bg_img.png) no-repeat 50% 50%;
+  background: url(../images/bg_img.png) no-repeat 50% 0;
+  background-size: cover;
+  -webkot-background-size: cover;
 }
 a,
 a:visited,
@@ -664,7 +666,7 @@ a:hover {
   width: 160px;
 }
 #accept .box {
-  padding: 25px 20px;
+  padding: 25px 57px;
 }
 #accept .box h6 {
   font-family: "Droid Sans", Helvetica, Arial, sans-serif;
@@ -688,7 +690,7 @@ a:hover {
 #accept .timer {
   zoom: 1;
   padding: 0 0 30px;
-  width: 640px;
+  width: 560px;
   margin: 0 auto;
 }
 #accept .timer:after {
@@ -702,7 +704,7 @@ a:hover {
   float: left;
   width: 120px;
   height: 120px;
-  margin: 0 20px;
+  margin: 0 10px;
   background: url(../images/dark.png) repeat 0 0;
   -moz-border-radius: 5px;
   border-radius: 5px;
