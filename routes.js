@@ -207,8 +207,11 @@ module.exports = function(app) {
 					var data = {
 					  is_owner: vote == data.owner
 					};
-
-					channel.trigger('message', data, function(err, request, response) {
+					
+					var socket_id = '1302.1083607';
+console.log('push');
+					pusher.trigger(channel, 'message', data, socket_id, function(err, request, response) {
+console.log('pushed');
 						top.ok();
 					});
 				})
