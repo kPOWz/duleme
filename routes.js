@@ -126,17 +126,19 @@ module.exports = function(app) {
 	app.get('/duel/:id/accepted', function(req, res){
 		var id = req.params.id;
 
-		$().seq(function() {
+		$()
+		.seq(function() {
 			getData('duel:' + id, this);
 		})
-		.seq(function(data) {
+		.seq('data', function(data) {
 			if(data.challenger != req.session.fb_id)
 				return res.render('error.ejs', { error: 'You are not allowed to accept this duel!' });
 
 			data.accept = true;
 			saveData('duel:' + id, data, this);
 		})
-		.seq(function(data) {
+		.seq(function() {
+			var data = this.vars.data;
 			var top = this;
 
 			facebook_client.getSessionByAccessToken(req.session.fb_token)(function(facebook_session) {
@@ -152,7 +154,8 @@ module.exports = function(app) {
 		      });
 	  		});
 		})
-		.seq(function(data) {
+		.seq(function() {
+			var data = this.vars.data;
 			var top = this;
 
 			facebook_client.getSessionByAccessToken(req.session.fb_token)(function(facebook_session) {
@@ -168,7 +171,7 @@ module.exports = function(app) {
 		      });
 	  		});
 		})
-		.seq(function(data) {
+		.seq(function() {
 			return res.redirect('/duel/' + id);
 		});
 	});
@@ -204,7 +207,7 @@ module.exports = function(app) {
 					var data = {
 					  is_owner: vote == data.owner
 					};
-
+					
 					top.ok();
 				})
 				.seq(function() {
