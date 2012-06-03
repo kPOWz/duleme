@@ -152,7 +152,8 @@ module.exports = function(app) {
 			        "timeout": 10000 // modify the global timeout for facebook calls (Default: 10000)
 			    }
 			);
-
+console.log('fb session: ***************');
+console.log(req.session);
 			facebook_client.getSessionByAccessToken(req.session.fb_token)(function(facebook_session) {
 				var message = {
 				    message: 'The dual is on between ' + data.owner_name + ' and ' + data.challenger_name + '!',
@@ -206,18 +207,14 @@ module.exports = function(app) {
 
 		facebook_client.getSessionByAccessToken(req.session.fb_token)(function(facebook_session) {
 	      facebook_session.graphCall("/me/friends", 'GET')(function(result) {
-	      console.log('results from fb: **************');
-	      console.log(result);
-		      	if(result && result.data) {
-		          req.session.facebook_friends = result.data;
+	          req.session.facebook_friends = result.data;
 
-		          req.session.facebook_friends.sort(function(a,b){ 
-				  	if (a.name.toLowerCase() == b.name.toLowerCase()){
-				    	return 0;
-				    }
-				    return a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1;  
-				  });		      	
-		      	}
+	          req.session.facebook_friends.sort(function(a,b){ 
+			  	if (a.name.toLowerCase() == b.name.toLowerCase()){
+			    	return 0;
+			    }
+			    return a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1;  
+			  });
 
 	          if(req.session.accept_duel != null)
 	          {
