@@ -21,7 +21,6 @@ everyauth.facebook
   session.fb_username = fbUserMetadata.username;
   session.fb_id = fbUserMetadata.id;
   session.first_name = fbUserMetadata.first_name;
-  console.log(fbUserMetadata);
 
   return 1;
 })

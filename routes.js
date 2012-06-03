@@ -89,6 +89,8 @@ module.exports = function(app) {
 		})
 		.seq(function(data) {
 			console.log(data);
+			if(!data.votes) { data.votes = {}; }
+
 			var vote = data.votes[req.session.fb_id];
 			var owner_total = 0;
 			var challenger_total = 0;
@@ -194,6 +196,8 @@ module.exports = function(app) {
 				getData('duel:' + id, this);
 			})
 			.seq(function(data) {
+				if(!data.votes) { data.votes = {}; }
+
 				data.votes[req.session.fb_id] = vote;
 				saveData('duel:' + id, data, this);
 			})
@@ -248,7 +252,7 @@ module.exports = function(app) {
 	var getData = function(id, fn) {
 
 		redis.get(id, function(err, data) {
-			return fn(err, JSON.parse(data.toString()));
+			return fn(err, data ? JSON.parse(data) : {});
 	    });
 	}
 
