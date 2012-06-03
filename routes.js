@@ -169,7 +169,7 @@ module.exports = function(app) {
 	  		});
 		})
 		.seq(function(data) {
-			return res.redirect('/duel/' + data.duel_id);
+			return res.redirect('/duel/' + id);
 		});
 	});
 
