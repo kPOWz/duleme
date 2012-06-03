@@ -33,7 +33,7 @@ app.configure(function () {
   app.use("/assets", express.static(__dirname + '/assets'));
   app.use(express.bodyParser());
   app.use(express.cookieParser());
-  app.use(express.session({secret: 'dualme', store: new RedisStore({ host: 'localhost' })}));
+  app.use(express.session({secret: 'dualme', store: new RedisStore({ host: 'fish.redistogo.com', port: '9011', db: 'bweber36', pass: '67920d08b0d7f9d1d73257352cfd7a88' })}));
   app.use(everyauth.middleware());
   app.use(app.router);
 })
