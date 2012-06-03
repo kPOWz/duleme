@@ -208,5 +208,8 @@ module.exports = function(app) {
 	app.get('/templates/modal', function(req, res){
 		return res.render('modal.ejs');
 	});
+	app.get('/templates/winner', function(req, res){
+		return res.render('winner.ejs');
+	});
 
 };

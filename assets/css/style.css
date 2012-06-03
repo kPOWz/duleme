@@ -589,6 +589,18 @@ a:hover {
   text-align: center;
   min-width: 150px;
 }
+.container .users .user .status.winner {
+  background: url(../images/button_green_right.png) no-repeat 100% 0;
+}
+.container .users .user .status.winner span {
+  background: url(../images/button_green_left.png) no-repeat 0 0;
+}
+.container .users .user .status.loser {
+  background: url(../images/button_red_right.png) no-repeat 100% 0;
+}
+.container .users .user .status.loser span {
+  background: url(../images/button_red_left.png) no-repeat 0 0;
+}
 .container .users .user .status.accepted {
   background: url(../images/banner_purple_right.png) no-repeat 100% 0;
 }
