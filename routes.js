@@ -204,6 +204,22 @@ module.exports = function(app) {
 			// 	channel.trigger('message', data, this);
 			// })
 			.seq(function() {
+				var top = this;
+				var data = this.vars.data;
+				var channel = id;
+				var event = 'message';
+				var data = {
+				  is_owner: vote == data.owner
+				};
+
+/*
+				channel.trigger('message', data, function(err, req, res) {
+					top.ok();
+				});
+*/
+				this.ok();
+			})
+			.seq(function() {
 				return res.redirect('/duel/' + id);
 			});
 		}
