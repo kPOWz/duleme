@@ -3,6 +3,14 @@ module.exports = function(app) {
 	var $ = require('seq');
 	var redis = require('redis-url').connect('redis://bweber36:67920d08b0d7f9d1d73257352cfd7a88@fish.redistogo.com:9011/');
 
+	var Pusher = require('node-pusher');
+
+	var pusher = new Pusher({
+	  appId: '21674',
+	  key: '78011045678593d481df',
+	  secret: '7945442b6d6b9eba5d36'
+	});
+
 	app.get('/', function(req, res) {
 		if(req.session != null && req.session.fb_token != null)
 			return res.redirect('/duel/create');
@@ -148,7 +156,7 @@ module.exports = function(app) {
 				}
 
 		      facebook_session.graphCall('/' + data.owner + '/feed/', message, 'post')(function(result) {
-		      	top(false, data);
+		      	top(false, result);
 		      });
 	  		});
 		})
@@ -172,12 +180,12 @@ module.exports = function(app) {
 				}
 
 		      facebook_session.graphCall('/' + data.challenger + '/feed/', message, 'post')(function(result) {
-		      	top(false, data);
+		      	top(false, result);
 		      });
 	  		});
 		})
 		.seq(function(data) {
-			return res.redirect('/duel/' + data.duel_id);
+			return res.redirect('/duel/' + id);
 		});
 	});
 
@@ -192,7 +200,7 @@ module.exports = function(app) {
 		if(req.session.fb_token == null) {
 			return res.redirect('/auth/facebook');
 		} else {
-			$().seq(function() {
+			$().seq('data', function() {
 				getData('duel:' + id, this);
 			})
 			.seq(function(data) {
@@ -200,6 +208,14 @@ module.exports = function(app) {
 
 				data.votes[req.session.fb_id] = vote;
 				saveData('duel:' + id, data, this);
+			})
+			.seq(function() {
+				var data = this.vars.data;
+				var channel = id;
+				var event = 'message';
+				var data = {
+				  is_owner: vote == data.owner
+				};
 			})
 			.seq(function() {
 				return res.redirect('/duel/' + id);
