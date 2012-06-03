@@ -180,20 +180,36 @@ module.exports = function(app) {
 		req.session.vote_duel = id
 		req.session.vote_candidate = vote;
 
-		console.log(req.session.fb_token);
 		if(req.session.fb_token == null) {
 			return res.redirect('/auth/facebook');
 		} else {
-			$().seq('data', function() {
-				getData('duel:' + id, this);
-			})
-			.seq(function(data) {
-				if(!data.votes) { data.votes = {}; }
+			$()
+				.seq('data', function() {
+					getData('duel:' + id, this);
+				})
+				.seq(function() {
+					var data = this.vars.data;
+
+					if(!data.votes || ((data.votes instanceof Array) == true)) { data.votes = {}; }
+
+					data.votes[req.session.fb_id] = vote;
+
+					saveData('duel:' + id, data, this);
+				})
+				.seq(function() {
+					var top = this;
+					var data = this.vars.data;
+					var channel = id;
+					var event = 'message';
+					var data = {
+					  is_owner: vote == data.owner
+					};
 
 				data.votes[req.session.fb_id] = vote;
 				saveData('duel:' + id, data, this);
-			})
+			});
 			// .seq(function() {
+			// 	var top = this;
 			// 	var data = this.vars.data;
 			// 	var channel = id;
 			// 	var event = 'message';
@@ -201,27 +217,13 @@ module.exports = function(app) {
 			// 	  is_owner: vote == data.owner
 			// 	};
 
-			// 	channel.trigger('message', data, this);
+			// 	channel.trigger('message', data, function(err, req, res) {
+			// 		top.ok();
+			// 	});
 			// })
-			.seq(function() {
-				var top = this;
-				var data = this.vars.data;
-				var channel = id;
-				var event = 'message';
-				var data = {
-				  is_owner: vote == data.owner
-				};
-
-/*
-				channel.trigger('message', data, function(err, req, res) {
-					top.ok();
-				});
-*/
-				this.ok();
-			})
-			.seq(function() {
-				return res.redirect('/duel/' + id);
-			});
+			// .seq(function() {
+			// 	return res.redirect('/duel/' + id);
+			// });
 		}
 	});
 
@@ -270,10 +272,9 @@ module.exports = function(app) {
 			})
 			.seq(function(data) {
 				redis.quit();
+				var out = (data ? JSON.parse(data) : {});
 
-				if(fn) {
-					return fn(false, data ? JSON.parse(data) : {});
-				}
+				return fn(false, out);
 			});
 	}
 
