@@ -88,6 +88,8 @@ module.exports = function(app) {
 			getData('duel:' + id, this);
 		})
 		.seq(function(data) {
+			if(!data.votes) { data.votes = {}; }
+
 			var vote = data.votes[req.session.fb_id];
 			return res.render('modal.ejs', { vote: vote, data: data });
 		});
