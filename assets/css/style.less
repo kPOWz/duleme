@@ -128,7 +128,7 @@ a:hover {
 
 		.border-radius(5px);
 
-		img {
+		& > img {
 			display: block;
 			width: 100px;
 			height: 100px;
@@ -150,7 +150,7 @@ a:hover {
 	
 			.border-radius(5px);
 	
-			img {
+			& > img {
 				display: block;
 				width: 100px;
 				height: 100px;
@@ -178,6 +178,28 @@ a:hover {
 					text-align: center;
 					
 					min-width: 150px;
+				}
+				
+				&.accepted {
+					background: url(../images/banner_purple_right.png) no-repeat 100% 0;
+
+					span {
+						background: url(../images/banner_purple_left.png) no-repeat 0 0;
+					}
+				}
+
+				&.picked {
+					background: url(../images/banner_blue_right.png) no-repeat 100% 0;
+
+					span {
+						background: url(../images/banner_blue_left.png) no-repeat 0 0;
+						
+						img {
+							position: relative;
+							top: 6px;
+							padding-right: 5px;
+						}
+					}
 				}
 			}
 		}

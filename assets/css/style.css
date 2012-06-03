@@ -487,7 +487,7 @@ a:hover {
   -moz-border-radius: 5px;
   border-radius: 5px;
 }
-.container .user img {
+.container .user  > img {
   display: block;
   width: 100px;
   height: 100px;
@@ -517,7 +517,7 @@ a:hover {
   -moz-border-radius: 5px;
   border-radius: 5px;
 }
-.container .users .user img {
+.container .users .user  > img {
   display: block;
   width: 100px;
   height: 100px;
@@ -549,6 +549,23 @@ a:hover {
   text-shadow: rgba(0, 0, 0, 0.4) 0 1px 1px;
   text-align: center;
   min-width: 150px;
+}
+.container .users .user .status.accepted {
+  background: url(../images/banner_purple_right.png) no-repeat 100% 0;
+}
+.container .users .user .status.accepted span {
+  background: url(../images/banner_purple_left.png) no-repeat 0 0;
+}
+.container .users .user .status.picked {
+  background: url(../images/banner_blue_right.png) no-repeat 100% 0;
+}
+.container .users .user .status.picked span {
+  background: url(../images/banner_blue_left.png) no-repeat 0 0;
+}
+.container .users .user .status.picked span img {
+  position: relative;
+  top: 6px;
+  padding-right: 5px;
 }
 .container .users .vs {
   float: left;
