@@ -29,11 +29,19 @@ module.exports = function(app) {
 		var endDate = req.body.end_date.split("-");
 		var endTime = req.body.end_time.split(":")
 
+		var challenger_name;
+		for(var i=0; i < req.session.facebook_friends.length; i++) {
+			if(req.session.facebook_friends[i].id == req.body.challenger)
+				challenger_name = req.session.facebook_friends[i].name;
+		}
+
 		var duel = {
 			owner: req.session.fb_id,
+			owner_name: req.session.first_name,
 			challenger: req.body.challenger,
+			challenger_name: challenger_name,
 			desc: req.body.desc,
-			date: new Date(endDate[0], (+endDate[1] - 1), endDate[2], endTime[0], endTime[1], 0, 0),
+			date: new Date(endDate[0], (+endDate[1] - 1), endDate[2], endTime[0], endTime[1], 0, 0).getTime(),
 			accept: false
 		}
 
@@ -90,7 +98,16 @@ module.exports = function(app) {
 		})
 		.seq(function(data) {
 			req.session.accept_duel = id;
-			return res.render('duelaccept.ejs', data);
+			var duel = {
+				fb_challenger: data.challenger,
+				challenger_name: data.challenger_name,
+				fb_owner: data.owner,
+				owner_name: data.owner_name,
+				desc: data.desc,
+				date: data.date
+			};
+
+			return res.render('duelaccept.ejs', duel);
 		});
 	});
 

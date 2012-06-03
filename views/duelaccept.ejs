@@ -1,0 +1,46 @@
+<div class="users">
+	<div class="user">
+		<img src=<%="https://graph.facebook.com/" + fb_owner + "/picture?type=normal"%> />
+	</div>	
+
+	<div class="vs"></div>
+
+	<div class="user">
+		<img src=<%="https://graph.facebook.com/" + fb_challenger + "/picture?type=normal"%> />
+	</div>
+</div>
+
+<hr />
+
+<h4>Hey <%= challenger_name %>! Your friend <%= owner_name %> has challenged you to a duel!</h4>
+
+<hr />
+
+<div id="accept">
+	<div class="box">
+		<h6>The Duel</h6>
+		<hr />
+		<p><%= desc %></p>
+	</div>
+	
+	<% if(date < new Date().getTime()) { %>
+		<div>This duel has expired!</div>
+	<% } else { %>
+		<div id="defaultCountdown" class="timer"></div>
+
+		<a href="/auth/facebook" class="button"><span>Accept this Duel!</span></a>
+	<% } %>
+</div>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+<script type="text/javascript" src="/assets/js/jquery.countdown.js"></script>
+<script type="text/javascript">
+$(function () {
+	var endTime = new Date(<%= date %>);
+	$('#defaultCountdown').countdown({until: endTime, onExpiry: expired});
+});
+
+var expired = function() {
+	window.location.reload();
+}
+</script>
